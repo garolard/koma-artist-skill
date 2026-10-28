@@ -21,3 +21,7 @@ The skill does not upload, submit, or automatically assign Studio metadata. Imag
 ## Maintaining KOMA rules
 
 Each skill includes its own reference files so it remains self-contained when installed individually. Update all three copies together when KOMA changes. The KOMA app and Studio remain authoritative; the included reference was checked on 2026-10-28.
+
+## Preparing panel files
+
+The prepare skill includes a Python 3 helper that copies approved artwork into a new, numbered panel folder without modifying the originals. The agent can create its JSON input from an approved plan; see [the preparation plan format](skills/koma-artist-prepare/references/prepare-plan.md). The helper targets a fresh, empty Studio draft; shape, framing, rarity, cover and previews still need attention in Studio.
