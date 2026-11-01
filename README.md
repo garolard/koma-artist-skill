@@ -20,7 +20,7 @@ The skill does not upload, submit, or automatically assign Studio metadata. Imag
 
 ## Maintaining KOMA rules
 
-Each skill includes its own reference files so it remains self-contained when installed individually. Update all three copies together when KOMA changes. The KOMA app and Studio remain authoritative; the included reference was checked on 2026-10-28.
+Each skill includes its own reference files so it remains self-contained when installed individually. Update all three copies together when KOMA changes. The KOMA app and Studio remain authoritative; the included reference was checked on 2026-11-01.
 
 ## Preparing panel files
 

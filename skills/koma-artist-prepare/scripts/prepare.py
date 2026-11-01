@@ -7,15 +7,21 @@ import shutil
 import sys
 from pathlib import Path
 
+TEMPLATE_SIZES = {'standard-v1': 49, 'small-v1': 25, 'mini-v1': 16}
+DEFAULT_TEMPLATE = 'standard-v1'
+
 
 def prepare(plan_path: Path, output: Path) -> int:
     plan_path = plan_path.resolve(strict=True)
     plan = json.loads(plan_path.read_text(encoding='utf-8'))
     if not isinstance(plan, dict) or not isinstance(plan.get('panels'), list) or not plan['panels']:
         raise ValueError('Plan must contain a non-empty panels array.')
+    template = plan.get('template', DEFAULT_TEMPLATE)
+    if not isinstance(template, str) or template not in TEMPLATE_SIZES:
+        raise ValueError(f'Unknown template {template!r}; use one of: {", ".join(TEMPLATE_SIZES)}.')
     panels = plan['panels']
-    if len(panels) > 49:
-        raise ValueError('A standard set has at most 49 panels.')
+    if len(panels) > TEMPLATE_SIZES[template]:
+        raise ValueError(f'A {template} set has at most {TEMPLATE_SIZES[template]} panels.')
     if output.exists() or output.is_symlink():
         raise ValueError(f'Output already exists: {output}')
     prepared = []

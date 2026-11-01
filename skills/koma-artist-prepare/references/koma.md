@@ -1,8 +1,8 @@
 # KOMA set and Studio reference
 
-Checked against KOMA specs on 2026-10-28. Confirm against the current KOMA documentation when available; report uncertainty if rules may have changed.
+Checked against KOMA specs on 2026-11-01. Confirm against the current KOMA documentation when available; report uncertainty if rules may have changed.
 
-A standard-v1 set has 49 numbered panels: 24 common, 12 rare, 8 epic, 4 legendary, 1 unique. Titles are 1–60 characters after trimming. Set code is 2–8 uppercase ASCII letters or digits and must be unique. Choose one cover and exactly three distinct panel previews.
+Set templates (Studio `templates.ts`): standard-v1 has 49 numbered panels (24 common, 12 rare, 8 epic, 4 legendary, 1 unique); small-v1 has 25 (12 common, 6 rare, 4 epic, 2 legendary, 1 unique); mini-v1 has 16 (8 common, 4 rare, 2 epic, 1 legendary, 1 unique). Every template keeps all five rarities and all five shapes (1x1, 2x1, 1x2, 3x1, 2x2). Card numbers are exactly 1 to the template's count, with no gaps or duplicates. Studio rejects a set whose rarity counts, card count, numbering or shapes do not match its template and names the rarity, count or card at fault. Each template's counts must meet the pack floor of 4 common, 2 rare, 2 epic, 1 legendary and 1 unique; pack odds are platform-wide, not per template. New drafts default to standard-v1; small-v1 and mini-v1 apply only when the artist picks them. Titles are 1–60 characters after trimming. Set code is 2–8 uppercase ASCII letters or digits and must be unique. Choose one cover and exactly three distinct panel previews.
 
 Full panel art sizes: 1x1 520x520; 2x1 1120x520; 1x2 520x1120; 3x1 1720x520; 2x2 1120x1120. Cover: 1024x1312. These are rendered art dimensions, not minimum input file dimensions. Studio accepts images the browser can decode and renders its own sizes. It warns if the cropped source has insufficient pixels.
 

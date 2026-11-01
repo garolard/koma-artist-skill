@@ -40,6 +40,38 @@ class PrepareTest(unittest.TestCase):
                 module.prepare(self.plan, self.output)
             self.assertFalse(self.output.exists())
 
+    def write_numbered_plan(self, count, template=None):
+        for n in range(1, count + 1):
+            (self.root / f'art{n}.jpg').write_bytes(f'art {n}'.encode())
+        panels = [{'slot': n, 'source': f'art{n}.jpg', 'title': f'Panel {n}'} for n in range(1, count + 1)]
+        plan = {'panels': panels} if template is None else {'template': template, 'panels': panels}
+        self.plan.write_text(json.dumps(plan), encoding='utf-8')
+
+    def test_template_sizes_are_enforced(self):
+        for template, size in [('standard-v1', 49), ('small-v1', 25), ('mini-v1', 16)]:
+            with self.subTest(template=template):
+                self.write_numbered_plan(size + 1, template)
+                with self.assertRaises(ValueError):
+                    module.prepare(self.plan, self.output)
+                self.assertFalse(self.output.exists())
+                self.write_numbered_plan(size, template)
+                module.prepare(self.plan, self.output)
+                self.assertEqual(len(list(self.output.iterdir())), size)
+                for path in self.output.iterdir():
+                    path.unlink()
+                self.output.rmdir()
+
+    def test_default_template_is_standard(self):
+        self.write_numbered_plan(26)
+        module.prepare(self.plan, self.output)
+        self.assertEqual(len(list(self.output.iterdir())), 26)
+
+    def test_unknown_template_is_rejected(self):
+        self.write_numbered_plan(1, 'large-v1')
+        with self.assertRaises(ValueError):
+            module.prepare(self.plan, self.output)
+        self.assertFalse(self.output.exists())
+
     def test_existing_output_is_not_modified(self):
         self.output.mkdir()
         (self.output / 'keep').write_text('keep')
